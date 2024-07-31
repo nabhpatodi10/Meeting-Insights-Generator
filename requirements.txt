@@ -1,4 +1,6 @@
 crewai
 exa_py
 langchain
+langchain_google_genai
+langchain_groq
 python-dotenv
