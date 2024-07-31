@@ -3,11 +3,16 @@ from crewai import Agent
 from dotenv import load_dotenv
 load_dotenv()
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 import os
 
 from tools import ExaSearchToolset
 
-llm_model = ChatGoogleGenerativeAI(model = "gemini-1.5-flash", verbose = True, google_api_key = os.getenv("GOOGLE_GEMINI_API"))
+# for using Gemini, 15 Requests per minute for free
+#llm_model = ChatGoogleGenerativeAI(model = "gemini-1.5-flash", verbose = True, google_api_key = os.getenv("GOOGLE_GEMINI_API"))
+
+# for using Llama 3 through Groq, fully free to use
+llm_model = ChatGroq(model = "llama3-70b-8192")
 
 class MeetingPrepAgents():
     def research_agent(self):
