@@ -1,9 +1,8 @@
 from textwrap import dedent
-from crewai import Agent
+from crewai import Agent, LLM
 from dotenv import load_dotenv
 load_dotenv()
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_groq import ChatGroq
+import litellm
 import os
 
 from tools import ExaSearchToolset
@@ -11,8 +10,9 @@ from tools import ExaSearchToolset
 # for using Gemini, 15 Requests per minute for free
 #llm_model = ChatGoogleGenerativeAI(model = "gemini-1.5-flash", verbose = True, google_api_key = os.getenv("GOOGLE_GEMINI_API"))
 
-# for using Llama 3 through Groq, fully free to use
-llm_model = ChatGroq(model = "llama3-70b-8192")
+# for using Deepseek R1 through Groq, fully free to use
+litellm.set_verbose = True
+llm_model = LLM(model = "groq/deepseek-r1-distill-llama-70b", api_key=os.getenv("GROQ_API_KEY"))
 
 class MeetingPrepAgents():
     def research_agent(self):
@@ -28,7 +28,13 @@ class MeetingPrepAgents():
 
         verbose=True,
 
-        llm = llm_model
+        llm = llm_model,
+
+        max_rpm = 5,
+
+        max_iter = 5,
+
+        max_tokens= 3000
       )
       
     def industry_analysis_agent(self):
@@ -44,7 +50,13 @@ class MeetingPrepAgents():
 
         verbose=True,
 
-        llm = llm_model
+        llm = llm_model,
+
+        max_rpm = 5,
+
+        max_iter = 5,
+
+        max_tokens= 3000
       )
       
     def meeting_strategy_agent(self):
@@ -58,7 +70,13 @@ class MeetingPrepAgents():
 
         verbose=True,
 
-        llm = llm_model
+        llm = llm_model,
+
+        max_rpm = 5,
+
+        max_iter = 5,
+
+        max_tokens= 3000
       )
       
     def summary_and_briefing_agent(self): 
@@ -71,5 +89,11 @@ class MeetingPrepAgents():
 
         verbose=True,
 
-        llm = llm_model
+        llm = llm_model, 
+        
+        max_rpm = 5,
+
+        max_iter = 5,
+
+        max_tokens= 3000
       )
